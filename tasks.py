@@ -23,7 +23,7 @@ def render_task_row(task):
         <td>
             <form method="POST" action="/delete" onsubmit="return confirm('Delete this task?');">
                 <input type="hidden" name="id" value="{task['id']}">
-                <button type="submit">Delete</button>
+                <button type="submit">D</button>
             </form>
         </td>
     </tr>
@@ -64,7 +64,7 @@ def home():
                     <th>Project</th>
                     <th>Due</th>
                     <th>Urgency</th>
-                    <th>Delete</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
