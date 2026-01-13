@@ -63,7 +63,7 @@ def home():
         </form>
         <form method="POST" action="/mod" class="mod-form">
           <input id="input-id" name="identity" placeholder="ID" />
-          <input id="input-mod" name="modification" placeholder="Enter modification..." />
+          <input id="input-mod" name="mod" placeholder="Enter modification..." />
           <button type="submit">Mod</button>
         </form>
 
@@ -100,11 +100,11 @@ def add():
     return redirect("/")
 
 @app.route('/mod', methods=["POST"])
-def modification():
+def mod():
     identity = request.form.get("identity", "")
-    mod = request.form.get("modification", "")
+    mod = request.form.get("mod", "")
     if mod.strip() and identity.strip():
-        subprocess.run(["task", identity, mod])
+        subprocess.run(["task", identity, "modify",  mod])
     return redirect("/")
 
 @app.route('/delete', methods=["POST"])
