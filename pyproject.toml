@@ -1,0 +1,16 @@
+[project]
+name = "taskserve"
+version = "0.1.0"
+authors = [{ name = 'Harry Bevins'}]
+dependencies = ["flask", "pyyaml"]
+
+[project.scripts]
+taskserve = "taskserve.cli:main"
+
+[build-system]
+requires = ["setuptools>=77.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["taskserve*"]

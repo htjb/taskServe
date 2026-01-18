@@ -1,8 +1,6 @@
 from flask import Flask, request, redirect, url_for
 import subprocess
 import json
-import yaml
-import os
 
 app = Flask(__name__)
 
@@ -123,14 +121,3 @@ def complete():
         subprocess.run(["task", "rc.confirmation=no", identity, "done"])
     return redirect("/")
 
-if __name__ == '__main__':
-    try:
-        with open(os.path.expanduser('~') + '/.config/taskServe.yml', 'r') as stream:
-            config = yaml.safe_load(stream)
-        hostIP = config['host_IP']
-    except (FileNotFoundError, KeyError) as e:
-        print("TASKSERVE: No host_IP specified in '~/.config/taskServe.yml'. Defaulting to '0.0.0.0'.")
-        config={}
-        condig['hostIP']='0.0.0.0'
-
-    app.run(host=config['host_IP'], port=5678)
