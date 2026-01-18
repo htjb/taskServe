@@ -36,3 +36,7 @@ sudo systemctl restart todo.service
 ```
 
 when I make changes.
+
+## Licence
+
+Released under a non-commercial, MIT-style license. See LICENSE for details.
