@@ -58,3 +58,10 @@ form {
 #input-mod {
     width:40%;
 }
+
+.burndown {
+    display: flex;
+    justify-content: center;
+    white-space: pre;
+    font-family: monospace;
+  }

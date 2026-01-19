@@ -66,7 +66,7 @@ def home():
           <input id="input-mod" name="mod" placeholder="Enter modification..." />
           <button type="submit">Mod</button>
         </form>
-
+        <a href="{ url_for('burndown') }">Burndown Daily</a>
         <table>
             <thead>
                 <tr>
@@ -121,3 +121,18 @@ def complete():
         subprocess.run(["task", "rc.confirmation=no", identity, "done"])
     return redirect("/")
 
+@app.route('/burndown', methods=["GET"])
+def burndown():
+    output = subprocess.check_output(["task", "burndown.daily"], text=True)
+    return f""" 
+    <html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{url_for('static', filename='style.css')}">
+      </head>
+      <h1>TaskServe</h1>
+      <a href="{ url_for('home') }">Home</a>
+      <body>
+      <div class="burndown">{output}<div>
+      </body>
+      <html>
+      """
