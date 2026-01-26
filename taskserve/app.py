@@ -12,8 +12,16 @@ def render_task_row(task):
     tags = " ".join(task.get('tags', []))
     urgency = task.get('urgency', 0)
 
+    if urgency <5:
+        color = '#d1d1d1'
+    elif urgency <10:
+        color = '#ffdd78'
+    else:
+        color = '#ff5d52'
+
+
     return f"""
-    <tr>
+    <tr style="background-color: {color}">
         <td>{task['id']}</td>
         <td>{task['description']}</td>
         <td>{tags}</td>
@@ -21,14 +29,16 @@ def render_task_row(task):
         <td>{due}</td>
         <td>{urgency}</td>
         <td>
-            <form method="POST" action="/delete" onsubmit="return confirm('Delete task {task['id']}?');">
-                <input type="hidden" name="id" value="{task['id']}">
-                <button type="submit">D</button>
-            </form>
-            <form method="POST" action="/complete" onsubmit="return confirm('Complete task {task['id']}?');">
-                <input type="hidden" name="id" value="{task['id']}">
-                <button type="submit">C</button>
-            </form>
+            <div style="display: flex; gap: 4px;">
+                <form method="POST" action="/complete" onsubmit="return confirm('Done?');">
+                    <input type="hidden" name="id" value="{task['id']}">
+                    <button type="submit" style="background-color: #28a745;">✓</button>
+                </form>
+                <form method="POST" action="/delete" onsubmit="return confirm('Delete?');">
+                    <input type="hidden" name="id" value="{task['id']}">
+                    <button type="submit" style="background-color: #dc3545;">✕</button>
+                </form>
+            </div>
         </td>
     </tr>
     """
@@ -51,6 +61,7 @@ def home():
     <html>
     <head>
         <link rel="stylesheet" type="text/css" href="{url_for('static', filename='style.css')}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
       </head>
       <h1>TaskServe</h1>
       <body>
@@ -67,22 +78,25 @@ def home():
           <button type="submit">Mod</button>
         </form>
         <a href="{ url_for('burndown') }">Burndown Daily</a>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Description</th>
-                    <th>Tags</th>
-                    <th>Project</th>
-                    <th>Due</th>
-                    <th>Urgency</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {rows}
-            </tbody>
-        </table>
+        <p>Number of tasks: {len(tasks)}</p>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Description</th>
+                        <th>Tags</th>
+                        <th>Project</th>
+                        <th>Due</th>
+                        <th>Urgency</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {rows}
+                </tbody>
+            </table>
+        </div>
       </body>
     </html>
     """
